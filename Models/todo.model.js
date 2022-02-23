@@ -7,6 +7,11 @@ const todoSchema = new Schema({
     required: true,
     trim: true,
   },
+  userId: {
+    type: Schema.ObjectId,
+    required: true,
+    ref: "User",
+  },
 });
 
 const Todo = mongoose.model("Todo", todoSchema);

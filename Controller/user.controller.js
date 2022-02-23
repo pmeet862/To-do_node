@@ -49,7 +49,7 @@ module.exports = {
         return res.status(401).send({ message: "Invalid E-mail or Password" });
       }
       const token = user.generateAuthToken();
-      res.status(200).send({ data: token, message: "Logged in successfully" });
+      res.status(200).send({ token: token, message: "Logged in successfully" });
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: "Internal server error" });
