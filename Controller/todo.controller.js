@@ -6,7 +6,8 @@ const Todo = require("../Models/todo.model");
 module.exports = {
   getTodos: async (req, res) => {
     try {
-      const results = await Todo.find({ userId: req.body.user._id });
+      console.log("id", { userId: req.user._id });
+      const results = await Todo.find({ userId: req.user._id });
       res.send(results);
     } catch (error) {
       console.log(error.message);
@@ -16,7 +17,9 @@ module.exports = {
   createNewTodo: async (req, res) => {
     try {
       // const todo = new Todo(req.body);
-      const { todos, userId } = req.body;
+      const { todos } = req.body;
+      const { _id: userId } = req.user;
+
       const dataToSave = new Todo({ todos, userId });
       const result = await dataToSave.save();
       res.send(result);

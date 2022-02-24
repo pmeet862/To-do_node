@@ -4,6 +4,7 @@ const {
   loginValidate,
 } = require("../Models/user.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   userRegistration: async (req, res) => {
@@ -48,7 +49,11 @@ module.exports = {
       if (!validPassword) {
         return res.status(401).send({ message: "Invalid E-mail or Password" });
       }
-      const token = user.generateAuthToken();
+      const token = jwt.sign({ _id: user._id }, process.env.JWTPRIVATEKEY, {
+        expiresIn: "10m",
+      });
+      console.log(token, user._id);
+      // const token = user.generateAuthToken();
       res.status(200).send({ token: token, message: "Logged in successfully" });
     } catch (error) {
       console.log(error);
