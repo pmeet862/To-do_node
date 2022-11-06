@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("mongodb://scrapper:Coder%40040@13.126.232.194/scrapper")
+  .connect(process.env.DBURL)
   .then(() => {
     console.log("MongoDB is connected");
   })
